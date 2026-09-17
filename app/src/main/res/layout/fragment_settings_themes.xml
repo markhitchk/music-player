@@ -29,6 +29,90 @@
                 style="@style/Divider.Horizontal"
                 android:layout_marginStart="@dimen/content_horizontal_margin"/>
 
+            <TextView
+                android:id="@+id/tvPlayerSkin"
+                style="@style/TextStyle.ContentTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/content_horizontal_margin"
+                android:layout_marginTop="@dimen/content_vertical_margin"
+                android:text="@string/player_skin"/>
+
+            <TextView
+                style="@style/TextStyle.Subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/content_horizontal_margin"
+                android:layout_marginTop="@dimen/content_spacing_vertical_margin"
+                android:layout_marginBottom="@dimen/content_spacing_margin"
+                android:text="@string/player_skin_summary"/>
+
+            <RadioGroup
+                android:id="@+id/rgPlayerSkin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rbPlayerSkinClassic"
+                    style="@style/CheckboxStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/content_horizontal_margin"
+                    android:text="@string/player_skin_classic"/>
+
+                <TextView
+                    style="@style/TextStyle.Subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/content_horizontal_margin"
+                    android:paddingStart="@dimen/checkbox_description_padding"
+                    android:paddingEnd="@dimen/content_horizontal_margin"
+                    android:paddingBottom="@dimen/content_spacing_margin"
+                    android:text="@string/player_skin_classic_summary"/>
+
+                <RadioButton
+                    android:id="@+id/rbPlayerSkinPocketTape"
+                    style="@style/CheckboxStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/content_horizontal_margin"
+                    android:text="@string/player_skin_pocket_tape"/>
+
+                <TextView
+                    style="@style/TextStyle.Subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/content_horizontal_margin"
+                    android:paddingStart="@dimen/checkbox_description_padding"
+                    android:paddingEnd="@dimen/content_horizontal_margin"
+                    android:paddingBottom="@dimen/content_spacing_margin"
+                    android:text="@string/player_skin_pocket_tape_summary"/>
+
+                <RadioButton
+                    android:id="@+id/rbPlayerSkinOrbital"
+                    style="@style/CheckboxStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/content_horizontal_margin"
+                    android:text="@string/player_skin_orbital"/>
+
+                <TextView
+                    style="@style/TextStyle.Subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/content_horizontal_margin"
+                    android:paddingStart="@dimen/checkbox_description_padding"
+                    android:paddingEnd="@dimen/content_horizontal_margin"
+                    android:paddingBottom="@dimen/content_vertical_margin"
+                    android:text="@string/player_skin_orbital_summary"/>
+
+            </RadioGroup>
+
+            <View
+                style="@style/Divider.Horizontal"
+                android:layout_marginStart="@dimen/content_horizontal_margin"/>
+
             <CheckBox
                 style="@style/CheckboxStyle"
                 android:id="@+id/cb_auto_night_mode"
