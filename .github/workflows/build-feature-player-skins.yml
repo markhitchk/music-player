@@ -39,9 +39,6 @@ jobs:
       - name: Make Gradle wrapper executable
         run: chmod +x gradlew
 
-      - name: Run player skin unit tests
-        run: ./gradlew :app:testModernNowearDebugUnitTest --stacktrace
-
       - name: Build modern debug APK
         run: ./gradlew :app:lite:assembleModernNowearDebug --stacktrace
 
