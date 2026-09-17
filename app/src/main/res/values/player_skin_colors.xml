@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="player_skin_pocket_background">#24211B</color>
+    <color name="player_skin_pocket_surface">#3B3428</color>
+    <color name="player_skin_pocket_primary">#F5E6C8</color>
+    <color name="player_skin_pocket_secondary">#C9B58F</color>
+    <color name="player_skin_pocket_accent">#FF7A3D</color>
+
+    <color name="player_skin_orbital_background">#070B14</color>
+    <color name="player_skin_orbital_surface">#0D1726</color>
+    <color name="player_skin_orbital_primary">#EAF7FF</color>
+    <color name="player_skin_orbital_secondary">#7DD3FC</color>
+    <color name="player_skin_orbital_accent">#3FE0FF</color>
+</resources>
