@@ -23,9 +23,18 @@ class PlayerSkinTest {
     }
 
     @Test
-    fun `skin ids remain stable for persistence`() {
+    fun `unknown storage code falls back to classic`() {
+        assertEquals(PlayerSkin.CLASSIC, PlayerSkin.fromStorageCode(-1))
+        assertEquals(PlayerSkin.CLASSIC, PlayerSkin.fromStorageCode(999))
+    }
+
+    @Test
+    fun `skin identifiers and storage codes remain stable`() {
         assertEquals("classic", PlayerSkin.CLASSIC.id)
+        assertEquals(0, PlayerSkin.CLASSIC.storageCode)
         assertEquals("pocket_tape_84", PlayerSkin.POCKET_TAPE_84.id)
+        assertEquals(1, PlayerSkin.POCKET_TAPE_84.storageCode)
         assertEquals("orbital", PlayerSkin.ORBITAL.id)
+        assertEquals(2, PlayerSkin.ORBITAL.storageCode)
     }
 }
