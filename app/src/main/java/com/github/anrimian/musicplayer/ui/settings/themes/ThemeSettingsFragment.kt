@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.anrimian.musicplayer.R
 import com.github.anrimian.musicplayer.databinding.FragmentSettingsThemesBinding
 import com.github.anrimian.musicplayer.di.Components
+import com.github.anrimian.musicplayer.domain.models.player.PlayerSkin
 import com.github.anrimian.musicplayer.ui.common.theme.AppTheme
 import com.github.anrimian.musicplayer.ui.common.theme.ThemeController
 import com.github.anrimian.musicplayer.ui.common.toolbar.AdvancedToolbar
+import com.github.anrimian.musicplayer.ui.player_screen.skin.PlayerSkinPreferences
 import com.github.anrimian.musicplayer.ui.settings.themes.view.ThemesAdapter
 import com.github.anrimian.musicplayer.ui.utils.ViewUtils
 import com.github.anrimian.musicplayer.ui.utils.applyBottomInsets
@@ -27,6 +29,7 @@ class ThemeSettingsFragment : Fragment() {
 
     private lateinit var slidrInterface: SlidrInterface
     private lateinit var themeController: ThemeController
+    private lateinit var playerSkinPreferences: PlayerSkinPreferences
     private lateinit var adapter: ThemesAdapter
     
     override fun onCreateView(
@@ -44,6 +47,7 @@ class ThemeSettingsFragment : Fragment() {
         binding.nsvContainer.applyBottomInsets()
 
         themeController = Components.getAppComponent().themeController()
+        playerSkinPreferences = PlayerSkinPreferences(requireContext())
         
         val toolbar = requireActivity().findViewById<AdvancedToolbar>(R.id.toolbar)
         toolbar.setTitle(R.string.settings)
@@ -70,6 +74,16 @@ class ThemeSettingsFragment : Fragment() {
         })
         adapter = ThemesAdapter(AppTheme.appThemes(), themeController.getCurrentTheme(), ::onThemeClicked)
         binding.rvThemes.adapter = adapter
+
+        showSelectedPlayerSkin(playerSkinPreferences.selectedSkin)
+        binding.rgPlayerSkin.setOnCheckedChangeListener { _, checkedId ->
+            val skin = when (checkedId) {
+                R.id.rbPlayerSkinPocketTape -> PlayerSkin.POCKET_TAPE_84
+                R.id.rbPlayerSkinOrbital -> PlayerSkin.ORBITAL
+                else -> PlayerSkin.CLASSIC
+            }
+            playerSkinPreferences.selectedSkin = skin
+        }
         
         ViewUtils.setChecked(binding.cbAutoNightMode, themeController.isAutoDarkThemeEnabled())
         binding.cbAutoNightMode.setOnCheckedChangeListener { _, isChecked: Boolean ->
@@ -98,6 +112,16 @@ class ThemeSettingsFragment : Fragment() {
         binding.ivRectangle.setOnClickListener {
             themeController.setCircleShapeEnabled(requireActivity(), false)
         }
+    }
+
+    private fun showSelectedPlayerSkin(playerSkin: PlayerSkin) {
+        binding.rgPlayerSkin.check(
+            when (playerSkin) {
+                PlayerSkin.CLASSIC -> R.id.rbPlayerSkinClassic
+                PlayerSkin.POCKET_TAPE_84 -> R.id.rbPlayerSkinPocketTape
+                PlayerSkin.ORBITAL -> R.id.rbPlayerSkinOrbital
+            }
+        )
     }
 
     private fun onThemesScrolled(onStart: Boolean) {
