@@ -1,6 +1,7 @@
 package com.github.anrimian.musicplayer.ui.player_screen.view.views
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,8 @@ import com.github.anrimian.musicplayer.ui.common.format.getVolumeIcon
 import com.github.anrimian.musicplayer.ui.common.format.showFileSyncState
 import com.github.anrimian.musicplayer.ui.common.view.onRewindHold
 import com.github.anrimian.musicplayer.ui.common.view.setSmallDrawableStart
+import com.github.anrimian.musicplayer.ui.player_screen.skin.PlayerSkinPreferences
+import com.github.anrimian.musicplayer.ui.player_screen.skin.PlayerSkinStyler
 import com.github.anrimian.musicplayer.ui.utils.AndroidUtils
 import com.github.anrimian.musicplayer.ui.utils.getString
 import com.github.anrimian.musicplayer.ui.utils.isLandscape
@@ -47,6 +50,14 @@ class ControlPanelView @JvmOverloads constructor(
 ) : MotionLayout(context, attrs, defStyleAttr) {
 
     private val binding = PartialControlPanelBinding.inflate(LayoutInflater.from(context), this)
+
+    private val playerSkinPreferences = PlayerSkinPreferences(context)
+    private val playerSkinStyler = PlayerSkinStyler(this, binding)
+    private val playerSkinPreferenceListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+        if (key == PlayerSkinPreferences.KEY_SELECTED_SKIN) {
+            post { playerSkinStyler.apply(playerSkinPreferences.selectedSkin) }
+        }
+    }
 
     private val isLargeLand = context.isScreenLarge() && context.isLandscape()
 
@@ -92,8 +103,21 @@ class ControlPanelView @JvmOverloads constructor(
             addDelegate(BoundValuesDelegate(0.97f, 1.0f, VisibilityDelegate(binding.tvPlaybackSpeed)))
             addDelegate(BoundValuesDelegate(0.97f, 1.0f, VisibilityDelegate(binding.tvVolume)))
             addDelegate(BoundValuesDelegate(0.97f, 1.0f, VisibilityDelegate(binding.tvSleepTime)))
-            addDelegate(ReverseDelegate(BoundValuesDelegate(0.8f, 1f, VisibilityDelegate(binding.ivBottomPanelIndicator))));
+            addDelegate(ReverseDelegate(BoundValuesDelegate(0.8f, 1f, VisibilityDelegate(binding.ivBottomPanelIndicator))))
         }
+
+        playerSkinStyler.apply(playerSkinPreferences.selectedSkin)
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        playerSkinPreferences.registerListener(playerSkinPreferenceListener)
+        playerSkinStyler.apply(playerSkinPreferences.selectedSkin)
+    }
+
+    override fun onDetachedFromWindow() {
+        playerSkinPreferences.unregisterListener(playerSkinPreferenceListener)
+        super.onDetachedFromWindow()
     }
 
     fun initWithViewPager(viewPager: ViewPager2) {
@@ -315,7 +339,7 @@ class ControlPanelView @JvmOverloads constructor(
         binding.tvVolume.setSmallDrawableStart(getVolumeIcon(volumePercent))
     }
 
-    fun setPlayButtonsSelectableBackground(@DrawableRes resId :Int) {
+    fun setPlayButtonsSelectableBackground(@DrawableRes resId: Int) {
         binding.ivPlayPause.setBackgroundResource(resId)
         binding.ivSkipToNext.setBackgroundResource(resId)
         binding.ivSkipToPrevious.setBackgroundResource(resId)
