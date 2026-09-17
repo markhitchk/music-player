@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="player_skin">Player skin</string>
+    <string name="player_skin_summary">Change the personality of the Now Playing controls without changing playback behavior.</string>
+    <string name="player_skin_classic">Classic</string>
+    <string name="player_skin_classic_summary">The original Music Player layout.</string>
+    <string name="player_skin_pocket_tape">PocketTape 84</string>
+    <string name="player_skin_pocket_tape_summary">Retro cassette-player styling with tactile hardware details.</string>
+    <string name="player_skin_orbital">ORBITAL</string>
+    <string name="player_skin_orbital_summary">Futuristic dark player styling with circular and radar-inspired details.</string>
+</resources>
